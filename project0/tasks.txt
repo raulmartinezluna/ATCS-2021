@@ -1,13 +1,13 @@
 Tasks
   Raul:
-    Running Sums
-    Length of Last Word
-    Two Sum
-    Pascal's Triangle
-    Valid Parentheses
+    Running Sums (x)
+    Length of Last Word ()
+    Two Sum ()
+    Pascal's Triangle ()
+    Valid Parentheses ()
   Chris:
-    Keyboard Row
-    Valid Palindrome
-    Add Digits
-    Best Time to Buy and Sell Stock
-    Isomorphic Strings
+    Keyboard Row ()
+    Valid Palindrome ()
+    Add Digits ()
+    Best Time to Buy and Sell Stock ()
+    Isomorphic Strings ()
