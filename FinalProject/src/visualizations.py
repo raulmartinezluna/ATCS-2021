@@ -75,7 +75,7 @@ df["Size"] = pd.to_numeric(df["Size"], errors='coerce')
 
 #Size & Rating
 ax = sns.regplot(data=df, x="Size", y="Rating", scatter=False)
-plt.title("Correlation between Size and Rating")
+plt.title("Graph of Size and Rating")
 plt.show()
 
 #Correlation
@@ -85,7 +85,7 @@ print(y1.corr(x1))
 
 #Size & Installs
 ax = sns.regplot(data=df, x="Size", y="Installs", scatter=False)
-plt.title("Correlation between Size and Installs")
+plt.title("Graph of Size and Installs")
 plt.show()
 
 #Correlation
@@ -95,7 +95,7 @@ print(y2.corr(x2))
 
 #Installs & Rating
 ax = sns.regplot(data=df, x="Installs", y="Rating", scatter=False)
-plt.title("Correlation between Installs and Rating")
+plt.title("Graph of Installs and Rating")
 plt.show()
 
 #Correlation
