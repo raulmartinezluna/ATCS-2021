@@ -108,4 +108,3 @@ if __name__ == '__main__':
     root = insert(root, 8)
     print("\nInorder traversal of binary tree with 8 inserted is")
     print(getInorder(root))
-    print(isBST(root))
