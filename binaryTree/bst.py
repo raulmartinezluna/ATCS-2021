@@ -2,7 +2,7 @@
 Ms. Namasivayam
 ATCS 2021-2022
 Binary Tree
-
+Student: Raul Martinez Luna
 Python program to for binary tree insertion and traversals
 """
 from bst_node import Node
