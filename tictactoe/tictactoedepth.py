@@ -124,7 +124,7 @@ class TicTacToeDepth:
         opt_col = -1
         #The rest
         if player == "O":
-            best = -10
+            best = -1000
             for r in range(3):
                 for c in range(3):
                     if self.is_valid_move(r, c):
@@ -137,7 +137,7 @@ class TicTacToeDepth:
                         self.place_player("-", r, c)
             return best, opt_row, opt_col
         if player == "X":
-            worst = 10
+            worst = 1000
             for r in range(3):
                 for c in range(3):
                     if self.is_valid_move(r, c):
