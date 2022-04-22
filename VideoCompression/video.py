@@ -61,3 +61,6 @@ class VideoRecorder:
         print("Amount of Frames: " + str(count - 1))
 
 if __name__ == '__main__':
+    recorder = VideoRecorder()
+    video = recorder.makeVideo(recorder.takeVideo())
+    recorder.countFramesInVideo(video)
