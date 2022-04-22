@@ -12,6 +12,7 @@ import os
 
 ''' Object handles video recording '''
 class VideoRecorder:
+
     '''
         Function takes in cv and returns a tuple of retList & frameList.
         ret is a boolean that says whether it's accompanying frame is usable.
@@ -38,5 +39,15 @@ class VideoRecorder:
 
         ''' Code above is partially from https://www.geeksforgeeks.org/python-opencv-capture-video-from-camera/ '''
         return zip(retList, frameList)
+
+    '''
+    Function takes in zipped retList & frameList and combines them into a single variable in a certain format.
+    '''
+    def makeVideo(self, videoAspects):
+        video = []
+        for ret, frame in self.takeVideo():
+            temp_list = [ret, frame]
+            video.append(temp_list)
+        return video
 
 if __name__ == '__main__':
