@@ -50,4 +50,14 @@ class VideoRecorder:
             video.append(temp_list)
         return video
 
+    '''
+    Counts the amount of frames in a video
+    '''
+    def countFramesInVideo(self, video):
+        count = 1
+        for frame in video:
+            if frame[0] == True:
+                count += 1
+        print("Amount of Frames: " + str(count - 1))
+
 if __name__ == '__main__':
