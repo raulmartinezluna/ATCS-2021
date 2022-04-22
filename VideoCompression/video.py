@@ -10,4 +10,7 @@ Finished: N/A
 import cv2 as cv
 import os
 
+''' Object handles video recording '''
+class VideoRecorder:
+
 if __name__ == '__main__':
