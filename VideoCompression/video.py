@@ -6,4 +6,8 @@ Started: April 22nd, 2020
 Finished: N/A
 '''
 
+''' Libraries '''
+import cv2 as cv
+import os
+
 if __name__ == '__main__':
