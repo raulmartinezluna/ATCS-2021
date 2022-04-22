@@ -3,6 +3,7 @@ Program: Records a video and provides an original version and a compressed versi
 Teacher: Nandhini Namasivayam
 Student Author: Raul Martinez Luna
 Started: April 22nd, 2020
-Ended:
-
+Finished: N/A
 '''
+
+if __name__ == '__main__':
