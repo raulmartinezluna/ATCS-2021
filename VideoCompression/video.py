@@ -2,6 +2,7 @@ import os
 import cv2 as cv
 import numpy as np
 from sklearn.cluster import KMeans
+import time
 
 class FrameCompressor:
 
@@ -98,13 +99,15 @@ class Video:
         count = 1
         for frame in frameList:
             compressor = FrameCompressor()
-            compressedFrame = compressor.compressImage(compressor.loadImage(frame), 10)
+            compressedFrame = compressor.compressImage(compressor.loadImage(frame), 2)
             videoCompressed.write(compressedFrame)
-            print("Frames Compressed: "+ str(count))
+            print("Frames Compressed: "+str(count))
             count+= 1
         videoCompressed.release()
         ''' Altered from https://www.codingforentrepreneurs.com/blog/how-to-record-video-in-opencv-python '''
 
 if __name__ == '__main__':
+    start_time = time.time()
     video = Video('Video/videoOriginal.mp4', 'Video/videoCompressed.mp4', 24.0, 1280, 720)
     video.create()
+    print("Time taken to execute program: "+str(time.time()-start_time)+" seconds")
