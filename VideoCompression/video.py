@@ -91,19 +91,35 @@ class Video:
             cv.imshow('Recording...', frame)
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break
-
         cap.release()
         videoOriginal.release()
         cv.destroyAllWindows()
+        converter = FrameCompressor()
+        oldFrame = converter.convertTo1D(converter.loadImage(frameList[0]))
         print("Total Frames: " + str(len(frameList)))
         count = 1
+        newFrame = None
         for frame in frameList:
             compressor = FrameCompressor()
             compressedFrame = compressor.compressImage(compressor.loadImage(frame), 2)
             videoCompressed.write(compressedFrame)
             print("Frames Compressed: "+str(count))
+            if count == 1:
+                converter2 = FrameCompressor()
+                newFrame = compressor.convertTo1D(compressor.loadImage(compressedFrame))
+                print(len(newFrame))
             count+= 1
         videoCompressed.release()
+        alterations = 0
+        print(len(oldFrame), len(newFrame))
+        print(oldFrame)
+        print(newFrame)
+        for pixelIndex in range(len(newFrame)):
+            #print(sum(newFrame[pixelIndex]))
+            #break
+            if sum(newFrame[pixelIndex]) != sum(oldFrame[pixelIndex]):
+                alterations += 1
+        print("amount altered: "+str(alterations))
         ''' Altered from https://www.codingforentrepreneurs.com/blog/how-to-record-video-in-opencv-python '''
 
 if __name__ == '__main__':
