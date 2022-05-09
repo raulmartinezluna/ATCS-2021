@@ -1,3 +1,11 @@
+'''
+Program: Records a video and provides an original version and a compressed version
+Teacher: Nandhini Namasivayam
+Student Author: Raul Martinez Luna
+Started: April 22nd, 2020
+Finished: N/A
+'''
+''' Libraries '''
 import os
 import cv2 as cv
 import numpy as np
@@ -73,7 +81,7 @@ class Video:
         self.framesPerSecond = fps
         self.resolution = (w, h)
 
-    def create(self):
+    def createOld(self):
         ''' Altered from https://www.codingforentrepreneurs.com/blog/how-to-record-video-in-opencv-python '''
         width = self.resolution[0]
         height = self.resolution[1]
@@ -82,7 +90,6 @@ class Video:
         cap.set(4, height)
         videoOriginal = cv.VideoWriter(self.filenameOriginal, cv.VideoWriter_fourcc(*'XVID'), 25, (width, height))
         videoCompressed = cv.VideoWriter(self.filenameCompressed, cv.VideoWriter_fourcc(*'XVID'), 25, (width, height))
-
         frameList = []
         while True:
             ret, frame = cap.read()
@@ -107,23 +114,100 @@ class Video:
             if count == 1:
                 converter2 = FrameCompressor()
                 newFrame = compressor.convertTo1D(compressor.loadImage(compressedFrame))
-                print(len(newFrame))
             count+= 1
         videoCompressed.release()
         alterations = 0
         print(len(oldFrame), len(newFrame))
         print(oldFrame)
+        print("------------")
         print(newFrame)
         for pixelIndex in range(len(newFrame)):
-            #print(sum(newFrame[pixelIndex]))
-            #break
             if sum(newFrame[pixelIndex]) != sum(oldFrame[pixelIndex]):
                 alterations += 1
         print("amount altered: "+str(alterations))
         ''' Altered from https://www.codingforentrepreneurs.com/blog/how-to-record-video-in-opencv-python '''
+        ''' 
+        Records and saves a video
+        '''
+    def createVideo(self):
+        ''' Altered from https://www.codingforentrepreneurs.com/blog/how-to-record-video-in-opencv-python '''
+        width = self.resolution[0]
+        height = self.resolution[1]
+        cap = cv.VideoCapture(0)
+        cap.set(3, width)
+        cap.set(4, height)
+        videoOriginal = cv.VideoWriter(self.filenameOriginal, cv.VideoWriter_fourcc(*'XVID'), 25, (width, height))
+        while True:
+            ret, frame = cap.read()
+            videoOriginal.write(frame)
+            cv.imshow('Recording...', frame)
+            if cv.waitKey(1) & 0xFF == ord('q'):
+                break
+        cap.release()
+        videoOriginal.release()
+        cv.destroyAllWindows()
+        ''' Altered from https://www.codingforentrepreneurs.com/blog/how-to-record-video-in-opencv-python '''
+
+    def createFrames(self):
+        cap = cv.VideoCapture(self.filenameOriginal)
+        success, image = cap.read()
+        count = 0
+        while success:
+            cv.imwrite("Frames/frame%d.jpg" % count, image)  # save frame as JPEG file
+            success, image = cap.read()
+            print('Read a new frame: ', success)
+            count += 1
+
+    '''
+     Function deletes every image in the Frames folder, this is done so that frames from a previous run do not conflict with the new run.
+     '''
+    def deleteFilesInFramesFolder(self):
+        ''' Code below is from https://www.techiedelight.com/delete-all-files-directory-python/ '''
+        for file in os.listdir("Frames"):
+            os.remove(os.path.join("Frames", file))
+        ''' Code above is from https://www.techiedelight.com/delete-all-files-directory-python/ '''
+
+    '''
+    Function deletes every image in the Video folder, this is done so that frames from a previous run do not conflict with the new run.
+    '''
+    def deleteFilesInVideoFolder(self):
+        ''' Code below is from https://www.techiedelight.com/delete-all-files-directory-python/ '''
+        for file in os.listdir("Video"):
+            os.remove(os.path.join("Video", file))
+        ''' Code above is from https://www.techiedelight.com/delete-all-files-directory-python/ '''
+
+    '''
+    Function clears every directory this program requires
+    '''
+    def clearMemory(self):
+        self.deleteFilesInFramesFolder()
+        self.deleteFilesInVideoFolder()
+    '''
+    Function Purpose
+    '''
+    def compressVideo(self):
+        cap = cv.VideoCapture(0)
+
+        fourcc = cv.VideoWriter_fourcc(*'XVID')
+        out = cv.VideoWriter(self.filenameCompressed, fourcc, 20.0, (640, 480))
+        # Go through Frames folder and have a while loop going through its numbers and then have that as frame
+        while (cap.isOpened()):
+            ret, frame = cap.read()
+            if ret == True:
+                frame = cv.flip(frame, 0)
+
+                out.write(frame)
+            else:
+                break
+        cap.release()
+        out.release()
+        cv.destroyAllWindows()
 
 if __name__ == '__main__':
     start_time = time.time()
-    video = Video('Video/videoOriginal.mp4', 'Video/videoCompressed.mp4', 24.0, 1280, 720)
-    video.create()
+    program = Video('Video/videoOriginal.mp4', 'Video/videoCompressed.avi', 24.0, 1280, 720)
+    program.clearMemory()
+    program.createVideo()
+    program.createFrames()
+    #program.compressVideo() Still being written
     print("Time taken to execute program: "+str(time.time()-start_time)+" seconds")
